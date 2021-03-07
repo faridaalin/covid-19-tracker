@@ -53,13 +53,14 @@ function App() {
     const sorted = countries.sort((a, b) => (+a.deaths < +b.deaths ? 1 : -1));
 
     sorted.forEach((country) => {
-      // console.log('country:', country);
-
-      const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-        'Construction on the Washington Monument began in 1848.'
-      );
-
-      console.log('popup:', popup);
+      // map.on('mouseenter', function (e) {
+      //   map.getCanvas().style.cursor = 'pointer';
+      //   console.log('event:', e);
+      // });
+      // map.on('mouseleave', function () {
+      //   map.getCanvas().style.cursor = '';
+      //   popup.remove();
+      // });
 
       const marker = document.createElement('div');
       marker.className = 'marker';
@@ -72,10 +73,24 @@ function App() {
       marker.style.width = newStyle.markerWidth;
       marker.style.height = newStyle.markerHeight;
 
-      new mapboxgl.Marker(marker)
-        .setLngLat([country.countryInfo.long, country.countryInfo.lat])
-        .setPopup(popup)
-        .addTo(map);
+      const addMarker = () => {
+        const customMaker = new mapboxgl.Marker(marker);
+        const popup = new mapboxgl.Popup({
+          // closeButton: false,
+          // closeOnClick: false,
+        });
+
+        popup.setHTML(
+          `<p><strong>Country: ${country.country}</strong></p><p>Cases: ${country.cases}</p>`
+        );
+
+        customMaker
+          .setLngLat([country.countryInfo.long, country.countryInfo.lat])
+          .setPopup(popup)
+          .addTo(map);
+      };
+
+      map.on('load', addMarker);
     });
   }, [countries]);
   // console.log('sortedByDeaths', sortedByDeaths);
