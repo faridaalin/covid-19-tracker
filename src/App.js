@@ -54,6 +54,7 @@ function App() {
 
     const addMarker = () => {
       sorted.forEach((country) => {
+        console.log('country', country);
         const marker = document.createElement('div');
         marker.className = 'marker';
         const markerStyles = {
@@ -66,21 +67,18 @@ function App() {
         marker.style.width = newStyle.markerWidth;
         marker.style.height = newStyle.markerHeight;
 
-        const customMaker = new mapboxgl.Marker(marker);
         const popup = new mapboxgl.Popup({
           offset: [0, -7],
           closeButton: false,
           closeOnClick: false,
-        });
-
-        popup.setHTML(
+        }).setHTML(
           `<p><strong>Country: ${country.country}</strong></p><p>Cases: ${country.cases}</p>`
         );
 
         marker.addEventListener('mouseenter', () => popup.addTo(map));
         marker.addEventListener('mouseleave', () => popup.remove());
 
-        customMaker
+        new mapboxgl.Marker(marker)
           .setLngLat([country.countryInfo.long, country.countryInfo.lat])
           .setPopup(popup)
           .addTo(map);
