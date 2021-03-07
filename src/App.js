@@ -53,7 +53,14 @@ function App() {
     const sorted = countries.sort((a, b) => (+a.deaths < +b.deaths ? 1 : -1));
 
     sorted.forEach((country) => {
-      console.log('country deaths:', country.deaths);
+      // console.log('country:', country);
+
+      const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+        'Construction on the Washington Monument began in 1848.'
+      );
+
+      console.log('popup:', popup);
+
       const marker = document.createElement('div');
       marker.className = 'marker';
       const markerStyles = {
@@ -67,6 +74,7 @@ function App() {
 
       new mapboxgl.Marker(marker)
         .setLngLat([country.countryInfo.long, country.countryInfo.lat])
+        .setPopup(popup)
         .addTo(map);
     });
   }, [countries]);
