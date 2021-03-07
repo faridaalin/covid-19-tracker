@@ -1,0 +1,8 @@
+.dashboard-container {
+  display: flex;
+}
+.dashboard-container section {
+  display: flex;
+  align-items: baseline;
+  margin-right: 32px;
+}

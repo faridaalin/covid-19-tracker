@@ -52,7 +52,6 @@ const MapboxMap = () => {
 
     const addMarker = () => {
       sorted.forEach((country) => {
-        console.log('country', country);
         const marker = document.createElement('div');
         marker.className = 'marker';
         const markerStyles = {
