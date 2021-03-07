@@ -4,26 +4,24 @@ import axios from './axios';
 import './App.css';
 
 function App() {
-  const [deaths, setDeaths] = useState(0);
+  // const [deaths, setDeaths] = useState(0);
   const [countries, setCountries] = useState([]);
 
   const node = useRef(null);
 
   const setMarkerSize = (deaths, markerStyles) => {
-    // console.log(+deaths);
-    // console.log(+deaths > 500000);
     if (+deaths > 500000) {
       markerStyles.markerWidth = '80px';
       markerStyles.markerHeight = '80px';
 
       return markerStyles;
-    } else if (+deaths > 250000) {
+    } else if (+deaths > 100000) {
       markerStyles.markerWidth = '40px';
       markerStyles.markerHeight = '40px';
       return markerStyles;
     } else {
-      markerStyles.markerWidth = '20px';
-      markerStyles.markerHeight = '20px';
+      markerStyles.markerWidth = '15px';
+      markerStyles.markerHeight = '15px';
       return markerStyles;
     }
   };
@@ -55,6 +53,7 @@ function App() {
     const sorted = countries.sort((a, b) => (+a.deaths < +b.deaths ? 1 : -1));
 
     sorted.forEach((country) => {
+      console.log('country deaths:', country.deaths);
       const marker = document.createElement('div');
       marker.className = 'marker';
       const markerStyles = {
@@ -62,22 +61,17 @@ function App() {
         markerHeight: 0,
       };
       const newStyle = setMarkerSize(country.deaths, markerStyles);
-      // console.log('newStyle', newStyle);
 
       marker.style.width = newStyle.markerWidth;
       marker.style.height = newStyle.markerHeight;
-      console.log(country.deaths);
 
       new mapboxgl.Marker(marker)
         .setLngLat([country.countryInfo.long, country.countryInfo.lat])
         .addTo(map);
     });
   }, [countries]);
+  // console.log('sortedByDeaths', sortedByDeaths);
 
-  // console.log(
-  //   'COUNTRIES:',
-  //   countries.forEach((country) => console.log(country.countryInfo))
-  // );
   return (
     <div className='map-wrapper'>
       <div className='map-container'>
