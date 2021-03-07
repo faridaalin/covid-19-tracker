@@ -52,48 +52,42 @@ function App() {
 
     const sorted = countries.sort((a, b) => (+a.deaths < +b.deaths ? 1 : -1));
 
-    sorted.forEach((country) => {
-      // map.on('mouseenter', function (e) {
-      //   map.getCanvas().style.cursor = 'pointer';
-      //   console.log('event:', e);
-      // });
-      // map.on('mouseleave', function () {
-      //   map.getCanvas().style.cursor = '';
-      //   popup.remove();
-      // });
+    const addMarker = () => {
+      sorted.forEach((country) => {
+        const marker = document.createElement('div');
+        marker.className = 'marker';
+        const markerStyles = {
+          markerWidth: 0,
+          markerHeight: 0,
+        };
 
-      const marker = document.createElement('div');
-      marker.className = 'marker';
-      const markerStyles = {
-        markerWidth: 0,
-        markerHeight: 0,
-      };
-      const newStyle = setMarkerSize(country.deaths, markerStyles);
+        const newStyle = setMarkerSize(country.deaths, markerStyles);
 
-      marker.style.width = newStyle.markerWidth;
-      marker.style.height = newStyle.markerHeight;
+        marker.style.width = newStyle.markerWidth;
+        marker.style.height = newStyle.markerHeight;
 
-      const addMarker = () => {
         const customMaker = new mapboxgl.Marker(marker);
         const popup = new mapboxgl.Popup({
-          // closeButton: false,
-          // closeOnClick: false,
+          offset: [0, -7],
+          closeButton: false,
+          closeOnClick: false,
         });
 
         popup.setHTML(
           `<p><strong>Country: ${country.country}</strong></p><p>Cases: ${country.cases}</p>`
         );
 
+        marker.addEventListener('mouseenter', () => popup.addTo(map));
+        marker.addEventListener('mouseleave', () => popup.remove());
+
         customMaker
           .setLngLat([country.countryInfo.long, country.countryInfo.lat])
           .setPopup(popup)
           .addTo(map);
-      };
-
-      map.on('load', addMarker);
-    });
+      });
+    };
+    map.on('load', addMarker);
   }, [countries]);
-  // console.log('sortedByDeaths', sortedByDeaths);
 
   return (
     <div className='map-wrapper'>
