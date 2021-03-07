@@ -72,7 +72,7 @@ function App() {
           closeButton: false,
           closeOnClick: false,
         }).setHTML(
-          `<p><strong>Country: ${country.country}</strong></p><p>Cases: ${country.cases}</p>`
+          `<p><strong>Country: ${country.country}</strong></p><p>Cases: ${country.cases}</p><p>Deaths:${country.deaths}</p><p>Recovered:${country.recovered}</p>`
         );
 
         marker.addEventListener('mouseenter', () => popup.addTo(map));
