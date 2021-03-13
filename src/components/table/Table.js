@@ -14,7 +14,6 @@ const Table = ({ countries }) => {
       countries
         .slice(countriesVisited, countriesVisited + countriesPerPage)
         .map((country) => {
-          console.log(country);
           return (
             <article className='table-item' key={country.country}>
               <div>{formatDigits(country.country)}</div>

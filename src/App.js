@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from './axios';
 import MapboxMap from './components/mapboxMap/MapboxMap';
 import Table from './components/table/Table';
 import Dashboard from './components/dashboard/Dashboard';
 import SearchBar from './components/searchBar/SearchBar';
+import Country from './components/country/Country';
+
+import { CountryContext } from './context/SearchedCountryContext';
 import './App.css';
 
 const App = () => {
   const [all, setAll] = useState({});
   const [countries, setCountries] = useState([]);
+  const [country] = useContext(CountryContext);
+
   useEffect(() => {
     async function fetchData() {
       const request = await axios.get('/all');
@@ -44,9 +49,16 @@ const App = () => {
   return (
     <div className='container'>
       <SearchBar />
-      <Dashboard all={all} />
-      <MapboxMap countries={countries} />
-      <Table countries={countries} />
+      {country === null || country === '' ? (
+        <>
+          {' '}
+          <Dashboard all={all} />
+          <MapboxMap countries={countries} />
+          <Table countries={countries} />
+        </>
+      ) : (
+        <Country />
+      )}
     </div>
   );
 };
