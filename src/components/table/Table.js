@@ -47,7 +47,7 @@ const Table = ({ countries }) => {
         nextLabel={'Next'}
         pageCount={pageCount}
         onPageChange={changePage}
-        containerClassName={'paginationButtons'}
+        containerClassName={'paginationContainer'}
         previousClassName={'prevBtn'}
         nextClassName={'nextBtn'}
         disabledClassName={'paginationDisabled'}

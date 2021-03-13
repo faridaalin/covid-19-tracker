@@ -16,21 +16,24 @@ code {
   padding: 40px 16px;
 }
 
+.table-container {
+  width: 80%;
+  margin: 40px auto 0 auto;
+}
 .table-header,
 .table-item {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
 
-.paginationButtons {
-  width: 80%;
-  height: 40px;
+.paginationContainer {
+  width: 100%;
   list-style: none;
   display: flex;
   justify-content: center;
 }
 
-.paginationButtons a {
+.paginationContainer a {
   padding: 10px;
   margin: 8px;
   border-radius: 5px;
@@ -39,7 +42,7 @@ code {
   cursor: pointer;
 }
 
-.paginationButtons a:hover {
+.paginationContainer a:hover {
   color: white;
   background-color: #2b2eff;
 }
