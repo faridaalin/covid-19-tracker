@@ -20,20 +20,30 @@ const Dashboard = ({ title, content }) => {
     fetchData();
   }, []);
 
-  console.log('all', all);
+  const formatDigits = (digit) => {
+    let number = digit;
+    return (
+      number && number.toLocaleString({ undefined, minimumFractionDigits: 2 })
+    );
+  };
+
   return (
     <div className='dashboard-container'>
       <section>
         <h3>Cases:</h3>
-        <p>{all.cases}</p>
+        <p>{formatDigits(all.cases)}</p>
       </section>
       <section>
         <h3>Recovered:</h3>
-        <p>{all.recovered}</p>
+        <p>{formatDigits(all.recovered)}</p>
       </section>
       <section>
         <h3>Deaths:</h3>
-        <p>{all.deaths}</p>
+        <p>{formatDigits(all.deaths)}</p>
+      </section>
+      <section>
+        <h3>Active:</h3>
+        <p>{formatDigits(all.active)}</p>
       </section>
     </div>
   );
