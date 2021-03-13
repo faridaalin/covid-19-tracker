@@ -1,32 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from '../../axios';
+import formatDigits from '../../utils/formatDigits';
 import './dashboard.css';
 
-const Dashboard = ({ title, content }) => {
-  const [all, setAll] = useState({});
-  useEffect(() => {
-    async function fetchData() {
-      const request = await axios.get('/all');
-
-      if (request.status !== 200) {
-        console.log('Error happend');
-        return;
-      }
-
-      setAll(request.data);
-      return request;
-    }
-
-    fetchData();
-  }, []);
-
-  const formatDigits = (digit) => {
-    let number = digit;
-    return (
-      number && number.toLocaleString({ undefined, minimumFractionDigits: 2 })
-    );
-  };
-
+const Dashboard = ({ all }) => {
   return (
     <div className='dashboard-container'>
       <section>

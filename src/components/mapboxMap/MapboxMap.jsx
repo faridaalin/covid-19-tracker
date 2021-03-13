@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
-import axios from '../../axios';
+// import axios from '../../axios';
 
-const MapboxMap = () => {
-  const [countries, setCountries] = useState([]);
-
+const MapboxMap = ({ countries }) => {
   const node = useRef(null);
 
   const setMarkerSize = (deaths, markerStyles) => {
@@ -23,22 +21,6 @@ const MapboxMap = () => {
       return markerStyles;
     }
   };
-
-  useEffect(() => {
-    async function fetchData() {
-      const request = await axios.get('/countries');
-
-      if (request.status !== 200) {
-        console.log('Error happend');
-        return;
-      }
-
-      setCountries(request.data);
-      return request;
-    }
-
-    fetchData();
-  }, []);
 
   useEffect(() => {
     const map = new mapboxgl.Map({
