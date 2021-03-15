@@ -57,7 +57,7 @@ const App = () => {
           <Table countries={countries} />
         </>
       ) : (
-        <Country />
+        <Country country={country} />
       )}
     </div>
   );
