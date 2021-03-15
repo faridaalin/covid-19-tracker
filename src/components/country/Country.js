@@ -11,10 +11,10 @@ const Country = ({ country }) => {
       chartType='PieChart'
       loader={<div>Loading Chart</div>}
       data={[
-        ['Data', '..'],
+        ['Covi-19 data', 'Percentage'],
         ['Infected', country.cases],
         ['Deaths', country.deaths],
-        // ['Recovered', country.recovered],
+        ['Recovered', country.recovered],
         ['Active', country.active],
         ['Infected Today', country.todayCases],
       ]}
@@ -22,6 +22,7 @@ const Country = ({ country }) => {
         title: 'Covid-19 data',
         // Just add this option
         is3D: true,
+        pieSliceText: 'value',
       }}
       rootProps={{ 'data-testid': '2' }}
     />
