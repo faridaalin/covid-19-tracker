@@ -16,10 +16,18 @@ const Table = ({ countries }) => {
         .map((country) => {
           return (
             <article className='table-item' key={country.country}>
-              <div>{formatDigits(country.country)}</div>
-              <div>{formatDigits(country.cases)}</div>
-              <div>{formatDigits(country.recovered)}</div>
-              <div>{formatDigits(country.deaths)}</div>
+              <div className='text-left bg-gray-100'>
+                {formatDigits(country.country)}
+              </div>
+              <div className='text-left bg-gray-100'>
+                {formatDigits(country.cases)}
+              </div>
+              <div className='text-left bg-gray-100'>
+                {formatDigits(country.recovered)}
+              </div>
+              <div className='text-left bg-gray-100'>
+                {formatDigits(country.deaths)}
+              </div>
             </article>
           );
         });
@@ -35,10 +43,10 @@ const Table = ({ countries }) => {
   return (
     <section className='table-container'>
       <article className='table-header'>
-        <div>Country</div>
-        <div>Case</div>
-        <div>Recovered</div>
-        <div>Deaths</div>
+        <div className='text-left bg-gray-300'>Country</div>
+        <div className='text-left bg-gray-300'>Case</div>
+        <div className='text-left bg-gray-300'>Recovered</div>
+        <div className='text-left bg-gray-300'>Deaths</div>
       </article>
       {displayCountries()}
       <ReactPaginate
