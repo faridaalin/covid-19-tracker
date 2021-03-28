@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import formatDigits from '../../utils/formatDigits';
 
-const Table = ({ countries }) => {
+const Table = ({ error, countries }) => {
   const [pageNumber, setPageNumber] = useState(0);
 
   const countriesPerPage = 10;
@@ -45,6 +45,7 @@ const Table = ({ countries }) => {
 
   return (
     <section className='table-container w-96 max-w-3xl'>
+      {error ? <div className='py-2 '>{error}</div> : ''}
       <article className='table-header py-4 px-7 bg-gray-300'>
         <div className='text-left'>Country</div>
         <div className='text-left'>Case</div>

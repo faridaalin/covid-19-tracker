@@ -5,22 +5,26 @@ import { CountryContext } from '../../context/SearchedCountryContext';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState(null);
+  const [searchError, setSearchError] = useState(null);
   const [, setCountry] = useContext(CountryContext);
 
   useEffect(() => {
+    setSearchError(null);
     async function fetchData() {
+      setSearchError(null);
       if (!searchTerm || searchTerm.trim().length < 2) return;
       try {
         const request = await axios.get(`/countries/${searchTerm}`);
-        if (request.status !== 200) {
-          console.log('Error happend');
-          return;
-        }
-
+        console.log('request:', request);
+        if (request.status !== 200)
+          return setSearchError('An error happend, plase try again later.');
         setCountry(request.data);
         return request;
       } catch (err) {
-        console.log(err);
+        if (err.response.status === 404)
+          return setSearchError(err.response.data.message);
+
+        setSearchError('An error happend, plase try again later.');
       }
     }
 
@@ -28,11 +32,7 @@ const SearchBar = () => {
   }, [searchTerm, setCountry]);
 
   const handleCountry = (event) => {
-    if (
-      setSearchTerm === null ||
-      searchTerm === '' ||
-      searchTerm === undefined
-    ) {
+    if (event.target.value.length === 0 || event.target.value === '') {
       setCountry(null);
     }
     setSearchTerm(event.target.value);
@@ -58,6 +58,7 @@ const SearchBar = () => {
       >
         Search
       </button>
+      {searchError ? <div className='py-2 '>{searchError}</div> : ''}
     </div>
   );
 };

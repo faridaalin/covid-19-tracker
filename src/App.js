@@ -12,21 +12,25 @@ import './App.css';
 const App = () => {
   const [all, setAll] = useState({});
   const [countries, setCountries] = useState([]);
+  const [error, setError] = useState(null);
   const [country] = useContext(CountryContext);
 
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get('/all');
+      try {
+        const request = await axios.get('/all');
 
-      if (request.status !== 200) {
-        console.log('Error happend');
-        return;
+        if (request.status !== 200)
+          return setError('An error happend, plase try again later.');
+
+        setAll(request.data);
+        return request;
+      } catch (err) {
+        if (err.response.status === 404)
+          return setError(err.response.data.message);
+        setError('An error happend, plase try again later.');
       }
-
-      setAll(request.data);
-      return request;
     }
-
     fetchData();
   }, []);
 
@@ -46,6 +50,8 @@ const App = () => {
     fetchData();
   }, []);
 
+  console.log('country:', country);
+
   return (
     <div className='container mx-auto flex flex-col justify-center'>
       <SearchBar />
@@ -54,7 +60,7 @@ const App = () => {
           {' '}
           <Dashboard all={all} />
           <MapboxMap countries={countries} />
-          <Table countries={countries} />
+          <Table error={error} countries={countries} />
         </>
       ) : (
         <Country country={country} />
