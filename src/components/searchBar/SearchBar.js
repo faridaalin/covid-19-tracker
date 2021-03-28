@@ -39,21 +39,25 @@ const SearchBar = () => {
   };
 
   return (
-    <div>
-      <label htmlFor='search'>Search by country:</label>
-
+    <div className='h-12 mt-5 w-96 max-w-md mx-auto'>
       <DebounceInput
         type='search'
         id='search'
         name='search'
         aria-label='Search by country'
-        placeholder='F.eks Norway'
+        placeholder='Search by country name'
         minLength={2}
         debounceTimeout={300}
         onChange={handleCountry}
+        className='h-full px-2 w-3/5 border-2 border-gray-300 transition-all rounded-md placeholder-gray-300 focus:outline-none focus:shadow-outline shadow-sm'
       />
 
-      <button onClick={handleCountry}>Search</button>
+      <button
+        className='ml-1 w-3/12 border-2 border-gray-300 text-black rounded-md px-4 h-full transition duration-500 ease select-none hover:bg-gray-800  hover:border-gray-800 focus:outline-none focus:shadow-outline hover:text-white text-sm'
+        onClick={handleCountry}
+      >
+        Search
+      </button>
     </div>
   );
 };
