@@ -1,12 +1,33 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import formatDigits from '../../utils/formatDigits';
 
 const Country = ({ country }) => {
-  // console.table(country);
+  const option = {
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          const currentData = formatDigits(
+            data.datasets[0].data[tooltipItem.datasetIndex]
+          );
+
+          return `${currentData}`;
+        },
+        title: function (tooltipItem, data) {
+          const currentLabel = data.labels[tooltipItem[0].datasetIndex];
+          return currentLabel;
+        },
+      },
+      yPadding: 20,
+      xPadding: 30,
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    },
+  };
 
   return (
     <article className='max-w-md py-8 my-8 mx-auto'>
       <Doughnut
+        options={option}
         data={{
           labels: ['Cases', 'Recovered', 'Deaths', 'Active'],
           datasets: [
@@ -19,12 +40,10 @@ const Country = ({ country }) => {
                 country.active,
               ],
               backgroundColor: [
-                'rgba(255, 206, 86, 0.6)',
-                'rgba(54, 162, 235, 0.6)',
-                'rgba(255, 99, 132, 0.6)',
-                'rgba(75, 192, 192, 0.6)',
-                // 'rgba(153, 102, 255, 0.2)',
-                // 'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 206, 86, 0.4)',
+                'rgba(54, 162, 235, 0.4)',
+                'rgba(255, 99, 132, 0.4)',
+                'rgba(75, 192, 192, 0.4)',
               ],
               borderColor: [
                 'rgba(255, 206, 86, 1)',
@@ -32,8 +51,12 @@ const Country = ({ country }) => {
 
                 'rgba(255, 99, 132, 1)',
                 'rgba(75, 192, 192, 1)',
-                // 'rgba(153, 102, 255, 1)',
-                // 'rgba(255, 159, 64, 1)',
+              ],
+              hoverBackgroundColor: [
+                'rgba(255, 206, 86, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
               ],
               borderWidth: 1,
             },
@@ -41,15 +64,15 @@ const Country = ({ country }) => {
         }}
         height={400}
         width={400}
-        options={{
-          animation: {
-            animateScale: true,
-          },
-          maintainAspectRatio: false,
-          scales: {
-            yAxes: [{ ticks: { beginAtZero: true } }],
-          },
-        }}
+        // options={{
+        //   animation: {
+        //     animateScale: true,
+        //   },
+        //   maintainAspectRatio: false,
+        //   scales: {
+        //     yAxes: [{ ticks: { beginAtZero: true } }],
+        //   },
+        // }}
       />
     </article>
   );

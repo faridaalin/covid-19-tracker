@@ -15,7 +15,7 @@ const SearchBar = () => {
       if (!searchTerm || searchTerm.trim().length < 2) return;
       try {
         const request = await axios.get(`/countries/${searchTerm}`);
-        console.log('request:', request);
+
         if (request.status !== 200)
           return setSearchError('An error happend, plase try again later.');
         setCountry(request.data);
