@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { DebounceInput } from 'react-debounce-input';
-import axios from '../../axios';
+import axios from 'axios';
 import { CountryContext } from '../../context/SearchedCountryContext';
 
 const SearchBar = () => {
@@ -14,7 +14,9 @@ const SearchBar = () => {
       setSearchError(null);
       if (!searchTerm || searchTerm.trim().length < 2) return;
       try {
-        const request = await axios.get(`/countries/${searchTerm}`);
+        const request = await axios.get(
+          `https://covid19.mathdro.id/api/countries/${searchTerm}`
+        );
 
         if (request.status !== 200)
           return setSearchError('An error happend, plase try again later.');

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import axios from './axios';
+import axios from 'axios';
 import MapboxMap from './components/mapboxMap/MapboxMap';
 import Table from './components/table/Table';
 import Dashboard from './components/dashboard/Dashboard';
@@ -18,7 +18,7 @@ const App = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const request = await axios.get('/all');
+        const request = await axios.get('https://covid19.mathdro.id/api');
 
         if (request.status !== 200)
           return setError('An error happend, plase try again later.');
@@ -36,7 +36,9 @@ const App = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get('/countries');
+      const request = await axios.get(
+        'https://disease.sh/v3/covid-19/countries'
+      );
 
       if (request.status !== 200) {
         console.log('Error happend');
@@ -49,6 +51,8 @@ const App = () => {
 
     fetchData();
   }, []);
+
+  console.log('country:', country);
 
   return (
     <div className='container mx-auto flex flex-col justify-center'>

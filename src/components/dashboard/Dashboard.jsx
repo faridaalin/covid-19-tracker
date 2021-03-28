@@ -1,13 +1,26 @@
 import DashboardItem from './DashboardItem';
+import dateFormat from 'dateformat';
 
 const Dashboard = ({ all }) => {
   return (
-    <div className='dashboardWrapper py-8 my-8'>
-      <DashboardItem color='gray' title='Cases' data={all.cases} />
-      <DashboardItem color='green' title='Recovered' data={all.recovered} />
-      <DashboardItem color='red' title='Deaths' data={all.deaths} />
-      <DashboardItem color='blue' title='Active' data={all.active} />
-    </div>
+    <article className='py-8 my-8'>
+      <section>
+        Updated: {dateFormat(all.lastUpdate, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}
+      </section>
+      <div className='dashboardWrapper '>
+        <DashboardItem
+          color='gray'
+          title='Confirmed'
+          data={all.confirmed?.value}
+        />
+        <DashboardItem
+          color='green'
+          title='Recovered'
+          data={all.recovered?.value}
+        />
+        <DashboardItem color='red' title='Deaths' data={all.deaths?.value} />
+      </div>
+    </article>
   );
 };
 
