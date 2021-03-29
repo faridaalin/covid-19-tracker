@@ -52,8 +52,6 @@ const App = () => {
     fetchData();
   }, []);
 
-  console.log('country:', country);
-
   return (
     <div className='container mx-auto flex flex-col justify-center'>
       <SearchBar />
@@ -65,7 +63,7 @@ const App = () => {
           <Table error={error} countries={countries} />
         </>
       ) : (
-        <Country country={country} />
+        <Country />
       )}
     </div>
   );
