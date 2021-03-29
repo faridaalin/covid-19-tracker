@@ -1,17 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import formatDigits from '../../utils/formatDigits';
 
 const Table = ({ error, countries }) => {
   const [pageNumber, setPageNumber] = useState(0);
 
+  const [sortCountries, setSortCountries] = useState(null);
+
+  useEffect(() => {
+    let arrayCopy = JSON.parse(JSON.stringify(countries));
+
+    setSortCountries(arrayCopy);
+  }, [countries]);
+
   const countriesPerPage = 10;
   const countriesVisited = pageNumber * countriesPerPage;
 
-  const displayCountries = () => {
+  const displayCountries = (allCountries) => {
     const countriesToDisplay =
-      countries &&
-      countries
+      allCountries &&
+      allCountries
         .slice(countriesVisited, countriesVisited + countriesPerPage)
         .map((country) => {
           return (
@@ -42,17 +50,45 @@ const Table = ({ error, countries }) => {
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
+  const sortByName = (e) => {
+    const sorted = countries
+      .slice()
+      .sort((a, b) =>
+        a.country.localeCompare(b.country, 'es', { sensitivity: 'base' })
+      );
+    setSortCountries(sorted);
+  };
+  const sortByCase = (e) => {
+    const sorted = countries.slice().sort((a, b) => b.cases - a.cases);
+    setSortCountries(sorted);
+  };
+  const sortByRecovered = (e) => {
+    const sorted = countries.slice().sort((a, b) => b.recovered - a.recovered);
+    setSortCountries(sorted);
+  };
+  const sortByDeaths = (e) => {
+    const sorted = countries.slice().sort((a, b) => b.deaths - a.deaths);
+    setSortCountries(sorted);
+  };
 
   return (
     <section className='table-container w-96 max-w-3xl'>
       {error ? <div className='py-2 '>{error}</div> : ''}
       <article className='table-header py-4 px-7 bg-gray-300'>
-        <div className='text-left'>Country</div>
-        <div className='text-left'>Case</div>
-        <div className='text-left'>Recovered</div>
-        <div className='text-left'>Deaths</div>
+        <div className='text-left cursor-pointer' onClick={sortByName}>
+          Country
+        </div>
+        <div className='text-left cursor-pointer' onClick={sortByCase}>
+          Case
+        </div>
+        <div className='text-left cursor-pointer' onClick={sortByRecovered}>
+          Recovered
+        </div>
+        <div className='text-left cursor-pointer' onClick={sortByDeaths}>
+          Deaths
+        </div>
       </article>
-      {displayCountries()}
+      {displayCountries(sortCountries)}
       <ReactPaginate
         previousLabel='Previous'
         nextLabel='Next'
