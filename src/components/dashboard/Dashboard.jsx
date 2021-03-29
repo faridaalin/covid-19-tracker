@@ -19,6 +19,13 @@ const Dashboard = ({ all }) => {
           data={all.recovered?.value}
         />
         <DashboardItem color='red' title='Deaths' data={all.deaths?.value} />
+        <DashboardItem
+          color='blue'
+          title='Active'
+          data={
+            all.confirmed?.value - (all.recovered?.value + all.deaths?.value)
+          }
+        />
       </div>
     </article>
   );
