@@ -42,8 +42,9 @@ const SearchBar = () => {
 
   const handleGlobal = () => {
     setCountry(null);
+    setSearchTerm('');
   };
-
+  console.log('searchTerm', searchTerm);
   return (
     <div className='h-12 mt-5 max-w-md mx-auto flex'>
       <DebounceInput
@@ -53,6 +54,7 @@ const SearchBar = () => {
         aria-label='Search by country'
         placeholder='Search by country'
         minLength={2}
+        value={searchTerm}
         debounceTimeout={300}
         onChange={handleCountry}
         className='h-full w-3/4 px-2  text-sm border-2 border-gray-300 transition-all rounded-md placeholder-gray-300 focus:outline-none focus:shadow-outline shadow-sm'

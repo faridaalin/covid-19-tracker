@@ -9,7 +9,7 @@ const Dashboard = ({ all }) => {
 
   return (
     <article className='py-8 my-8'>
-      <section>
+      <section className='mx-auto flex flex-col justify-center items-center pb-4'>
         Updated: {dateFormat(all.lastUpdate, 'dddd, mmmm dS, yyyy, h:MM:ss TT')}
       </section>
       <div className='dashboardWrapper '>
