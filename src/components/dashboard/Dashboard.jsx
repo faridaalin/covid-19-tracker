@@ -2,6 +2,11 @@ import DashboardItem from './DashboardItem';
 import dateFormat from 'dateformat';
 
 const Dashboard = ({ all }) => {
+  let active = null;
+  if (all.confirmed?.value && all.recovered?.value && all.deaths?.value) {
+    active = all.confirmed?.value - (all.recovered?.value + all.deaths?.value);
+  }
+
   return (
     <article className='py-8 my-8'>
       <section>
@@ -19,13 +24,7 @@ const Dashboard = ({ all }) => {
           data={all.recovered?.value}
         />
         <DashboardItem color='red' title='Deaths' data={all.deaths?.value} />
-        <DashboardItem
-          color='blue'
-          title='Active'
-          data={
-            all.confirmed?.value - (all.recovered?.value + all.deaths?.value)
-          }
-        />
+        <DashboardItem color='blue' title='Active' data={active} />
       </div>
     </article>
   );

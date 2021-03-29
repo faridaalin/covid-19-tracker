@@ -40,25 +40,35 @@ const SearchBar = () => {
     setSearchTerm(event.target.value);
   };
 
+  const handleGlobal = () => {
+    setCountry(null);
+  };
+
   return (
-    <div className='h-12 mt-5 w-96 max-w-md mx-auto'>
+    <div className='h-12 mt-5 max-w-md mx-auto flex'>
       <DebounceInput
         type='search'
         id='search'
         name='search'
         aria-label='Search by country'
-        placeholder='Search by country name'
+        placeholder='Search by country'
         minLength={2}
         debounceTimeout={300}
         onChange={handleCountry}
-        className='h-full px-2 w-3/5 border-2 border-gray-300 transition-all rounded-md placeholder-gray-300 focus:outline-none focus:shadow-outline shadow-sm'
+        className='h-full w-3/4 px-2  text-sm border-2 border-gray-300 transition-all rounded-md placeholder-gray-300 focus:outline-none focus:shadow-outline shadow-sm'
       />
 
       <button
-        className='ml-1 w-3/12 border-2 border-gray-300 text-black rounded-md px-4 h-full transition duration-500 ease select-none hover:bg-gray-800  hover:border-gray-800 focus:outline-none focus:shadow-outline hover:text-white text-sm'
+        className='ml-1 w-1/4 border-2 border-gray-300 text-black rounded-md px-4 h-full transition duration-500 ease select-none hover:bg-gray-800  hover:border-gray-800 focus:outline-none focus:shadow-outline hover:text-white text-sm'
         onClick={handleCountry}
       >
         Search
+      </button>
+      <button
+        className='ml-1 w-1/4 border-2 border-gray-300 text-black rounded-md px-4 h-full transition duration-500 ease select-none hover:bg-gray-800  hover:border-gray-800 focus:outline-none focus:shadow-outline hover:text-white text-sm'
+        onClick={handleGlobal}
+      >
+        Global
       </button>
       {searchError ? <div className='py-2 '>{searchError}</div> : ''}
     </div>
